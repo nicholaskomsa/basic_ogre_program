@@ -20,8 +20,6 @@ INT WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, INT) {
 
 
 
-
-
 			test.run();
 		}
 	}

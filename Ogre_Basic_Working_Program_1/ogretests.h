@@ -18,7 +18,51 @@ protected:
 
 	Camera mCamera;
 
-	virtual void createScene() {}
+	virtual void createScene() {
+	
+		mGraphics->getSceneManager()->setAmbientLight(Ogre::ColourValue(1, 1, 1, 1));
+		mCamera.setPosition(Ogre::Vector3(0, 0, 150));
+		mCamera.lookAt(Ogre::Vector3(0, 0, 0.001));
+		                                             
+		Ogre::String planeName = "plane";
+		Ogre::String material = "BaseWhiteNoLighting";
+
+
+
+		int X1 = 0, Y1 = 0, X2 = 300, Y2 = 300;
+
+		Ogre::ManualObject* manual = mGraphics->getSceneManager()->createManualObject(planeName);
+
+		manual->begin(material);
+
+		/*
+			(1) 0, 1			(3) 1, 1
+			(0) 0, 0			(2) 1, 0
+
+			0, 2, 1
+			2, 3, 1
+		*/
+		
+		manual->position(Ogre::Vector3(X1, Y1, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(0, 0));
+		manual->position(Ogre::Vector3(X1, Y2, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(0, 1));
+		manual->position(Ogre::Vector3(X2, Y1, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(1, 0));
+		manual->position(Ogre::Vector3(X2, Y2, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(1, 1));
+
+		manual->triangle(0, 2, 1);
+		manual->triangle(2, 3, 1);
+
+		manual->end();
+
+		manual->convertToMesh(planeName);
+	
+		Ogre::Entity* ent = mGraphics->getSceneManager()->createEntity(planeName);
+		mGraphics->getSceneManager()->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+
+//		Ogre::Entity* cube = mGraphics->getSceneManager()->createEntity("cube.mesh");
+//		mGraphics->getSceneManager()->getRootSceneNode()->createChildSceneNode()->attachObject(cube);
+
+	
+	}
 	virtual void destroyScene() {}
 public:
 	OgreTest(Graphics* graphics, Input* input)
@@ -28,6 +72,8 @@ public:
 	{
 		mGraphics->setEventListeners(this, this);
 		mInput->setEventListeners(this, this);
+
+		windowResized(Graphics::get().getRenderWindow());
 	}
 	virtual ~OgreTest() {}
 
