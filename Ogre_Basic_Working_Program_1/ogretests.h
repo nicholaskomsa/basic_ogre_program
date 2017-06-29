@@ -42,7 +42,7 @@ protected:
 			0, 2, 1
 			2, 3, 1
 		*/
-		
+													//this commented stuff is not accurate and needs to be updated
 		manual->position(Ogre::Vector3(X1, Y1, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(0, 0));
 		manual->position(Ogre::Vector3(X1, Y2, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(0, 1));
 		manual->position(Ogre::Vector3(X2, Y1, 0));// manual->normal(Ogre::Vector3(0, 0, 0)); manual->textureCoord(Ogre::Vector2(1, 0));
